@@ -30,7 +30,7 @@
                 </div>
             </li>
             <li class="nav-item" role="presentation">
-                <a href="#tab5Id" class="nav-link" data-bs-toggle="tab">Another link</a>
+                <a href="{{route('tickets.index')}}" class="nav-link" data-bs-toggle="tab">Tickets</a>
             </li>
             <li class="nav-item" role="presentation">
                 <a href="#" class="nav-link disabled" data-bs-toggle="tab">Disabled</a>

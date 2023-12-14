@@ -27,4 +27,8 @@ class Medico extends Model
     {
         return $this->hasMany(Atencion::class, 'medico_id');
     }
+    public function horasAtencion()
+    {
+        return $this->hasMany(HoraAtencion::class);
+    }
 }

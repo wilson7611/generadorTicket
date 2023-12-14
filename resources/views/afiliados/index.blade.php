@@ -22,7 +22,7 @@
         >
             
         <li class="nav-item">
-            <a class="nav-link text-white" href="{{ route('login') }}">Login</a>
+            <a class="nav-link text-dark" href="{{ route('login') }}">Login</a>
         </li>
         </ul>
         

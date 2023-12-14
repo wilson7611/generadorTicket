@@ -37,9 +37,9 @@ class TicketController extends Controller
     //     return "Ticket registrado exitosamente.";
     // }
 
-    public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital, HoraAtencion $horasDisponibles)
+    public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital)
     {
-        $horasDisponibles = HoraAtencion::all();
+        $horasDisponibles = HoraAtencion::where('disponible', true)->get();
         return view('afiliados.registrar', ['afiliado' => $afiliado, 'especialidad' => $especialidad, 'medico' => $medico, 'hospital' => $hospital, 'horasDisponibles' => $horasDisponibles]);
     }
 
@@ -48,9 +48,7 @@ class TicketController extends Controller
 
         // // Validar los datos del formulario
         // $request->validate([
-        //     'fecha' => 'required|date',
-        //     'estado' => 'required|in:Activa,Inactiva', // Ajusta según tus estados
-        //     // Otras reglas de validación...
+        //     'horaAtendion_id' => 'required', 
         // ]);
 
         // Crear una nueva Atencion
@@ -60,7 +58,7 @@ class TicketController extends Controller
             'medico_id' => $request->input('medico_id'),
             'horaAtencion_id' => $request->input('horaAtencion_id'),
             'afiliado_id' => $request->input('afiliado_id'),
-            
+
         ]);
 
         $atencion->save();
@@ -76,21 +74,43 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return "Atencion y Ticket registrados exitosamente.";
-    }
-    // public function index()
-    // {
-    //     $tickets = Ticket::with([
-    //         'afiliados',
-    //         'medicos',
-    //         'medicos.especialidades',
-    //         'medicos.especialidades.hospital',
-    //         'medicos.atenciones',
-    //         'medicos.atenciones.horas',
-    //     ])->get();
+        // // Eliminar la hora de atención seleccionada
+        // $horaAtencion = HoraAtencion::find($request->input('horaAtencion_id'));
+        // $horaAtencion->delete();
 
-    //     return view('tickets.index', compact('tickets'));
-    // }
+        // Actualizar el estado de la hora de atención a no disponible
+        $horaAtencion = HoraAtencion::find($request->input('horaAtencion_id'));
+        $horaAtencion->disponible = false;
+        $horaAtencion->save();
+        
+        // Reducir la cantidad de tickets disponibles en la especialidad
+        $medico = Medico::find($request->input('medico_id'));
+        $especialidad = $medico->especialidad;
+
+        if ($especialidad) {
+            $especialidad->cantidad_ticket -= 1;
+            $especialidad->save();
+        }
+
+        // Redireccionar con mensaje flash
+        return redirect()->route('afiliados.index')->with('mensaje', 'Atención y Ticket registrados exitosamente.');
+
+
+        // return "Atencion y Ticket registrados exitosamente.";
+    }
+
+
+
+
+
+
+
+
+    public function index()
+    {
+        $tickets = Ticket::all();
+        return view('tickets.index', compact('tickets'));
+    }
 
     /**
      * Show the form for creating a new resource.

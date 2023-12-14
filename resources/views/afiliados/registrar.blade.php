@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Registrar Tickets</title>
 </head>
+
 <body>
     <div class="container">
         <div class="row" style="height:50px"></div>
@@ -17,28 +19,36 @@
                 <form action="{{ route('afiliados.registrar.post') }}" method="post">
                     @csrf
                     <input type="hidden" name="afiliado_id" value="{{ $afiliado->id }}">
-                    <input type="hidden" name="medico_id" value="{{ $medico->id }}">                
+                    <input type="hidden" name="medico_id" value="{{ $medico->id }}">
+                    
                     <br>
                     {{-- <h3></h3> --}}
-                    
+
                     <h2>Registrar Ticket</h2>
-                    <select class="form-select" name="horaAtencion_id" id="">
+                    <br>
+                    <select class="form-select" name="horaAtencion_id" id="" required>
                         <option value="">Horas Disponibles</option>
                         @foreach ($horasDisponibles as $horas)
-                            <option value="{{$horas->id}}">{{$horas->hora}}</option>
+                            <option value="{{ $horas->id }}">{{ $horas->hora }}</option>
                         @endforeach
                     </select>
+                    <br>
                     <p>Hospital: {{ $hospital->nombre }}</p>
                     <p>Especialidad: {{ $especialidad->nombre }}</p>
+                    <p>Tickets Disponibles: {{ $especialidad->cantidad_ticket }}</p>
                     <p>Medico: {{ $medico->nombre_completo }}</p>
                     <p>Afiliado: {{ $afiliado->nombre_completo }}</p>
                     <p>CI: {{ $afiliado->ci }}</p>
                     <br>
                     <button type="submit" class="btn btn-success">Registrar Ticket</button>
+                    <a class="btn btn-danger" href="{{ route('afiliados.index') }}">
+                        Cancelar
+                    </a>
                 </form>
             </div>
             <div class="col-md-4"></div>
         </div>
     </div>
 </body>
+
 </html>

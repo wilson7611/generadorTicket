@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('hora_atencions', function (Blueprint $table) {
             $table->id();
             $table->time('hora');
+            $table->boolean('disponible')->default(true);
             $table->unsignedBigInteger('consultorio_id');
             $table->foreign('consultorio_id')->references('id')->on('consultorios');
             $table->timestamps();
