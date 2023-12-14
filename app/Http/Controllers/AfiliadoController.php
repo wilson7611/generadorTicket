@@ -18,8 +18,6 @@ class AfiliadoController extends Controller
         return view('validar_afiliado');
     }
 
-
-
     public function validarAfiliado(Request $request)
     {
         $request->validate([
@@ -53,75 +51,7 @@ class AfiliadoController extends Controller
             ]);
         } else {
             return "Afiliado no encontrado. <a href='" . route('afiliados.index') . "'>Volver</a>";
-        }
-
-
-        // $request->validate([
-        //     'ci' => 'required|numeric',
-        // ]);
-        
-        // $ci = $request->input('ci');
-        // $afiliado = Afiliado::where('ci', $ci)->first();
-        
-        // if ($afiliado) {
-        //     $medicos = Medico::all();
-        //     $especialidades = Especialidades::all();
-        //     $consultorios = Consultorio::all();
-        //     $horasDisponibles = HoraAtencion::all();
-        
-        //     return view('mostrar_especialidades', [
-        //         'afiliado' => $afiliado,
-        //         'medicos' => $medicos,
-        //         'especialidades' => $especialidades,
-        //         'consultorios' => $consultorios,
-        //         'horasDisponibles' => $horasDisponibles,
-        //     ]);
-        // } else {
-        //     return "Afiliado no encontrado. <a href='" . route('afiliados.index') . "'>Volver</a>";
-        // }
-
-        // $request->validate([
-        //     'ci' => 'required|numeric',
-        // ]);
-
-        // $ci = $request->input('ci');
-        // $afiliado = Afiliado::where('ci', $ci)->first();
-
-        // if ($afiliado) {
-        //     $medicos = Medico::all();
-
-        //     foreach ($medicos as $medico) {
-        //         $especialidad = Especialidades::find($medico->especialidad_id);
-        //         $hospital = Hospital::find($medico->hospital_id);
-
-        //         // Asegúrate de que $especialidad y $hospital no estén nulos antes de acceder a sus propiedades
-        //         if ($especialidad && $hospital) {
-        //             // Obtener información de la empresa a través del hospital
-        //             $empresa = Empresa::find($hospital->empresa_id);
-
-        //             $medico->especialidad = $especialidad;
-        //             $medico->hospital = [
-        //                 'Nombre' => $hospital->Nombre,
-        //                 'Empresa' => $empresa ? $empresa->Nombre : 'No disponible',
-        //             ];
-        //         } else {
-        //             $medico->especialidad = 'No disponible';
-        //             $medico->hospital = [
-        //                 'Nombre' => 'No disponible',
-        //                 'Empresa' => 'No disponible',
-        //             ];
-        //         }
-        //     }
-
-        //     return view('mostrar_especialidades', [
-        //         'afiliado' => $afiliado,
-        //         'medicos' => $medicos,
-        //         'especialidad' => $especialidad, // Puedes considerar si realmente necesitas pasar esto a la vista
-        //         'hospital' => $hospital, // Puedes considerar si realmente necesitas pasar esto a la vista
-        //     ]);
-        // } else {
-        //     return "Afiliado no encontrado. <a href='" . route('afiliados.index') . "'>Volver</a>";
-        // }
+        }      
     }
     /**
      * Display a listing of the resource.

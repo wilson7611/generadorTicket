@@ -13,30 +13,7 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    // public function formularioRegistro(Request $request)
-    // {
-    //     $afiliado = $request->get('afiliado');
-    //     $especialidades = Especialidades::all();
-
-    //     return view('registrar_ticket', ['afiliado' => $afiliado, 'especialidades' => $especialidades]);
-    // }
-
-    // public function registrarTicket(Request $request)
-    // {
-    //     // Validación de datos aquí...
-
-    //     $ticket = new Ticket([
-    //         'afiliado_id' => $request->input('afiliado_id'),
-    //         'especialidad_id' => $request->input('especialidad_id'),
-    //         'medico_id' => $request->input('medico_id'),
-    //         'hospital_id' => $request->input('hospital_id'),
-    //     ]);
-
-    //     $ticket->save();
-
-    //     return "Ticket registrado exitosamente.";
-    // }
-
+    
     public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital)
     {
         $horasDisponibles = HoraAtencion::where('disponible', true)->get();
@@ -98,13 +75,6 @@ class TicketController extends Controller
 
         // return "Atencion y Ticket registrados exitosamente.";
     }
-
-
-
-
-
-
-
 
     public function index()
     {
