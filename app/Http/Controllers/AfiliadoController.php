@@ -13,11 +13,13 @@ use App\Models\HoraAtencion;
 
 class AfiliadoController extends Controller
 {
+    // FORMULARIO PARA VALIDAR AL AFILIADO
     public function validarAfiliadoForm()
     {
         return view('validar_afiliado');
     }
 
+    //METODO PARA VALIDAR AL AFILIADO, SI ES AFILIADO NOS MANDA A LAS ESPECILIDADES
     public function validarAfiliado(Request $request)
     {
         $request->validate([

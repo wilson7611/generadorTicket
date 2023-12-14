@@ -13,16 +13,16 @@ use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    
+    //FORMULARIO PARA REGISTRAR TICKET DE AFILIADO
     public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital)
     {
         $horasDisponibles = HoraAtencion::where('disponible', true)->get();
         return view('afiliados.registrar', ['afiliado' => $afiliado, 'especialidad' => $especialidad, 'medico' => $medico, 'hospital' => $hospital, 'horasDisponibles' => $horasDisponibles]);
     }
 
+    //REGISTRO DE TICKET CON LA HORA DIA Y ACTUALIZACION DE TICKETS DISPONIBLES
     public function registrar(Request $request)
     {
-
         // // Validar los datos del formulario
         // $request->validate([
         //     'horaAtendion_id' => 'required', 
