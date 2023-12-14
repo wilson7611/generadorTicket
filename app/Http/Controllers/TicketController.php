@@ -8,39 +8,39 @@ use App\Models\Afiliado;
 use App\Models\Medico;
 use App\Models\Hospital;
 use App\Models\Atencion;
+use App\Models\HoraAtencion;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
-    public function formularioRegistro(Request $request)
+    // public function formularioRegistro(Request $request)
+    // {
+    //     $afiliado = $request->get('afiliado');
+    //     $especialidades = Especialidades::all();
+
+    //     return view('registrar_ticket', ['afiliado' => $afiliado, 'especialidades' => $especialidades]);
+    // }
+
+    // public function registrarTicket(Request $request)
+    // {
+    //     // Validación de datos aquí...
+
+    //     $ticket = new Ticket([
+    //         'afiliado_id' => $request->input('afiliado_id'),
+    //         'especialidad_id' => $request->input('especialidad_id'),
+    //         'medico_id' => $request->input('medico_id'),
+    //         'hospital_id' => $request->input('hospital_id'),
+    //     ]);
+
+    //     $ticket->save();
+
+    //     return "Ticket registrado exitosamente.";
+    // }
+
+    public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital, HoraAtencion $horasDisponibles)
     {
-        $afiliado = $request->get('afiliado');
-        $especialidades = Especialidades::all();
-
-        return view('registrar_ticket', ['afiliado' => $afiliado, 'especialidades' => $especialidades]);
-    }
-
-    public function registrarTicket(Request $request)
-    {
-        // Validación de datos aquí...
-
-        $ticket = new Ticket([
-            'afiliado_id' => $request->input('afiliado_id'),
-            'especialidad_id' => $request->input('especialidad_id'),
-            'medico_id' => $request->input('medico_id'),
-            'hospital_id' => $request->input('hospital_id'),
-        ]);
-
-        $ticket->save();
-
-        return "Ticket registrado exitosamente.";
-    }
-
-    public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital)
-    {
-        // Puedes obtener más datos necesarios para el formulario
-        // Por ejemplo, obtener médicos según la especialidad, etc.
-        return view('afiliados.registrar', ['afiliado' => $afiliado, 'especialidad' => $especialidad, 'medico' => $medico, 'hospital' => $hospital]);
+        $horasDisponibles = HoraAtencion::all();
+        return view('afiliados.registrar', ['afiliado' => $afiliado, 'especialidad' => $especialidad, 'medico' => $medico, 'hospital' => $hospital, 'horasDisponibles' => $horasDisponibles]);
     }
 
     public function registrar(Request $request)
@@ -70,7 +70,7 @@ class TicketController extends Controller
             'codigo' => uniqid('ticket_', true),
             'fecha_hora' => now(), // Puedes ajustar la fecha según tus necesidades
             'estado' => 'reservado', // Puedes ajustar el estado según tus necesidades
-            'observacion' => $request->input('observacion'),
+            'observacion' => "",
             'atencion_id' => $atencion->id,
         ]);
 
@@ -78,19 +78,19 @@ class TicketController extends Controller
 
         return "Atencion y Ticket registrados exitosamente.";
     }
-    public function index()
-    {
-        $tickets = Ticket::with([
-            'afiliados',
-            'medicos',
-            'medicos.especialidades',
-            'medicos.especialidades.hospital',
-            'medicos.atenciones',
-            'medicos.atenciones.horas',
-        ])->get();
+    // public function index()
+    // {
+    //     $tickets = Ticket::with([
+    //         'afiliados',
+    //         'medicos',
+    //         'medicos.especialidades',
+    //         'medicos.especialidades.hospital',
+    //         'medicos.atenciones',
+    //         'medicos.atenciones.horas',
+    //     ])->get();
 
-        return view('tickets.index', compact('tickets'));
-    }
+    //     return view('tickets.index', compact('tickets'));
+    // }
 
     /**
      * Show the form for creating a new resource.

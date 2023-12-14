@@ -13,6 +13,11 @@
         <br>
         <h3>Bienvenido, {{ $afiliado->nombre_completo }}</h3>
         <hr>
+        <h2>@foreach ($horasDisponibles as $horas)
+            <li>{{$horas->id}}</li>
+            <li>{{$horas->hora}}</li>
+            <li>{{$horas->consultorio_id}}</li>
+        @endforeach</h2>
         <div class="row">
             @foreach ($medicos as $medico)
                 <div class="col-md-3 mt-4 ">
@@ -28,7 +33,7 @@
 
                                 <!-- Enlace para registrar -->
                                 <a class="btn btn-success"
-                                    href="{{ route('afiliados.registrar', ['afiliado' => $afiliado->id, 'especialidad' => $especialidad->id, 'medico' => $medico->id, 'hospital' => $hospital->id]) }}">
+                                    href="{{ route('afiliados.registrar', ['afiliado' => $afiliado->id, 'especialidad' => $especialidad->id, 'medico' => $medico->id, 'hospital' => $hospital->id, 'horasDisponibles'=>$horasDisponibles]) }}">
                                     Registrar
                                 </a>
                             </div>

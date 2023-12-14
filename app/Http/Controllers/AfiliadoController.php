@@ -8,6 +8,7 @@ use App\Models\Medico;
 use App\Models\Especialidades;
 use App\Models\Hospital;
 use App\Models\Empresa;
+use App\Models\HoraAtencion;
 
 class AfiliadoController extends Controller
 {
@@ -29,7 +30,8 @@ class AfiliadoController extends Controller
 
         if ($afiliado) {
             $medicos = Medico::all();
-
+            $horasDisponibles = HoraAtencion::all();
+           
             foreach ($medicos as $medico) {
                 $especialidad = Especialidades::find($medico->especialidad_id);
                 $hospital = Hospital::find($medico->hospital_id);
@@ -41,7 +43,8 @@ class AfiliadoController extends Controller
                 'afiliado' => $afiliado,
                 'medicos' => $medicos,
                 'especialidad' => $especialidad,
-                'hospital' => $hospital
+                'hospital' => $hospital,
+                'horasDisponibles' => $horasDisponibles,
             ]);
         } else {
             return "Afiliado no encontrado. <a href='" . route('afiliados.index') . "'>Volver</a>";
