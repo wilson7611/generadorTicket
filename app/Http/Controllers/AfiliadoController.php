@@ -33,7 +33,9 @@ class AfiliadoController extends Controller
             $medicos = Medico::all();
             $horasDisponibles = HoraAtencion::all();
             $consultorios = Consultorio::all();
-
+            $especialidad = null;
+            $hospital = null;
+            $consultorio = null;
             foreach ($medicos as $medico) {
 
                 $especialidad = Especialidades::find($medico->especialidad_id);

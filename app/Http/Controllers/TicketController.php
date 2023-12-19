@@ -8,6 +8,7 @@ use App\Models\Afiliado;
 use App\Models\Medico;
 use App\Models\Hospital;
 use App\Models\Atencion;
+use App\Models\Empresa;
 use App\Models\HoraAtencion;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,11 @@ class TicketController extends Controller
     //FORMULARIO PARA REGISTRAR TICKET DE AFILIADO
     public function registrarForm(Afiliado $afiliado, Especialidades $especialidad, Medico $medico, Hospital $hospital)
     {
-        $horasDisponibles = HoraAtencion::where('disponible', true)->get();
+        // Obtén la especialidad del médico
+        $especialidadId = $medico->especialidad->id;
+        $horasDisponibles = HoraAtencion::where('disponible', true)
+            ->where('especialidad_id', $especialidadId)
+            ->get();
         return view('afiliados.registrar', ['afiliado' => $afiliado, 'especialidad' => $especialidad, 'medico' => $medico, 'hospital' => $hospital, 'horasDisponibles' => $horasDisponibles]);
     }
 
@@ -30,7 +35,7 @@ class TicketController extends Controller
 
         // Crear una nueva Atencion
         $atencion = new Atencion([
-            'fecha' => now(),
+            'fecha' => now()->toDateString(),
             'estado' => 'activo',
             'medico_id' => $request->input('medico_id'),
             'horaAtencion_id' => $request->input('horaAtencion_id'),
@@ -59,7 +64,7 @@ class TicketController extends Controller
         $horaAtencion = HoraAtencion::find($request->input('horaAtencion_id'));
         $horaAtencion->disponible = false;
         $horaAtencion->save();
-        
+
         // Reducir la cantidad de tickets disponibles en la especialidad
         $medico = Medico::find($request->input('medico_id'));
         $especialidad = $medico->especialidad;
@@ -69,12 +74,46 @@ class TicketController extends Controller
             $especialidad->save();
         }
 
-        // Redireccionar con mensaje flash
-        return redirect()->route('afiliados.index')->with('mensaje', 'Atención y Ticket registrados exitosamente.');
+        // // Redireccionar con mensaje flash
+        // return redirect()->route('afiliados.index')->with('mensaje', 'Atención y Ticket registrados exitosamente.');
 
+        // Obtener la hora de atención seleccionada
+        $horaAtencion = HoraAtencion::find($request->input('horaAtencion_id'));
 
-        // return "Atencion y Ticket registrados exitosamente.";
+        // Obtener la información de la empresa, hospital y consultorio
+       // Ajusta esto según tu relación de modelos
+        
+        $hospital = $especialidad->hospital;
+        $consultorio = $horaAtencion->consultorio;
+        // // return "Atencion y Ticket registrados exitosamente.";
+
+        // Obtener el afiliado basado en el ID proporcionado en el formulario
+        $afiliado = Afiliado::find($request->input('afiliado_id'));
+
+        // Verificar si el afiliado se encontró antes de usarlo
+        if ($afiliado) {
+            // Resto de tu lógica aquí
+
+            // Redireccionar a la vista de impresión y pasar datos
+            return view('tickets.ticket')->with([
+                'atencion' => $atencion,
+                'ticket' => $ticket,
+                'medico' => $medico,
+                'especialidad' => $especialidad,
+                'afiliado' => $afiliado,
+                'horaAtencion' => $horaAtencion,
+                
+                'hospital' => $hospital,
+                'consultorio' => $consultorio,
+            ]);
+        } else {
+            // Manejar el caso en el que el afiliado no se encuentra
+            // Puedes redirigir a otra página o mostrar un mensaje de error
+            return redirect()->back()->with('error', 'Afiliado no encontrado.');
+        }
     }
+
+
 
     public function index()
     {

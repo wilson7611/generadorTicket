@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('color');
             $table->integer('cantidad_ticket');
+            
             $table->timestamps();
         });
     }

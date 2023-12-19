@@ -17,6 +17,8 @@ return new class extends Migration
             $table->boolean('disponible')->default(true);
             $table->unsignedBigInteger('consultorio_id');
             $table->foreign('consultorio_id')->references('id')->on('consultorios');
+            $table->unsignedBigInteger('especialidad_id');
+            $table->foreign('especialidad_id')->references('id')->on('especialidades');
             $table->timestamps();
         });
     }

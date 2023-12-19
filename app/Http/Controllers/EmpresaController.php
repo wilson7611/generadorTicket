@@ -7,59 +7,97 @@ use Illuminate\Http\Request;
 
 class EmpresaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // set index page view
     public function index()
     {
-        //
+        return view('empresas.index');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // handle fetch all eamployees ajax request
+    public function fetchAll()
     {
-        //
+        $empresas = Empresa::all();
+        $salida = '';
+        if ($empresas->count() > 0) {
+            $salida .= '<table class="table table-striped table-sm text-center align-middle">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Propietario</th>
+                <th>Accion</th>
+              </tr>
+            </thead>
+            <tbody>';
+            foreach ($empresas as $empresa) {
+                $salida .= '<tr>
+                <td>' . $empresa->id . '</td>
+                <td>' . $empresa->nombre . '</td>
+                <td>' . $empresa->propietario . '</td>
+                <td>
+                  <a href="#" id="' . $empresa->id . '" class="text-success mx-1 editIcon" data-bs-toggle="modal" data-bs-target="#editEmpresaModal"><i class="bi-pencil-square h4"></i></a>
+
+                  <a href="#" id="' . $empresa->id . '" class="text-danger mx-1 deleteIcon"><i class="bi-trash h4"></i></a>
+                  
+                </td>
+              </tr>';
+            }
+            $salida .= '</tbody></table>';
+            echo $salida;
+        } else {
+            echo '<h1 class="text-center text-secondary my-5">No record present in the database!</h1>';
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // handle insert a new employee ajax request
     public function store(Request $request)
     {
-        //
+        // $file = $request->file('avatar');
+        // $fileName = time() . '.' . $file->getClientOriginalExtension();
+        // $file->storeAs('public/images', $fileName);
+
+        $empData = ['nombre' => $request->nombre, 'propietario' => $request->propietario];
+        Empresa::create($empData);
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Empresa $empresa)
+    // handle edit an employee ajax request
+    public function edit(Request $request)
     {
-        //
+        try {
+            $id = $request->id;
+            $emp = Empresa::find($id);
+          
+            return response()->json($emp);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Empresa no encontrada'], 404);
+        }
+
+        // $id = $request->id;
+        // $emp = Empresa::find($id);
+        // return response()->json($emp);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Empresa $empresa)
+    // handle update an employee ajax request
+    public function update(Request $request)
     {
-        //
+        
+        $emp = Empresa::find($request->id);
+
+        $empData = ['nombre' => $request->nombre, 'propietario' => $request->propietario];
+
+        $emp->update($empData);
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Empresa $empresa)
+    // handle delete an employee ajax request
+    public function delete(Request $request)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Empresa $empresa)
-    {
-        //
+        $id = $request->id;
+        $emp = Empresa::find($id);
+        Empresa::destroy($id);      
     }
 }

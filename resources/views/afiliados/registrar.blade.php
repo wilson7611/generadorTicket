@@ -49,6 +49,55 @@
             <div class="col-md-4"></div>
         </div>
     </div>
+
+
+
+    <!-- Código existente de la vista -->
+
+@if(isset($atencion) && isset($ticket) && isset($medico) && isset($especialidad))
+<!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ticketModal" id="openTicketModal">
+    Ver Ticket
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="ticketModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ticket de Atención</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Contenido del ticket -->
+                <p>Fecha y Hora de Atención: {{ $atencion->fecha }}</p>
+                <p>Estado de la Atención: {{ $atencion->estado }}</p>
+                <p>Médico: {{ $medico->nombre }}</p>
+                <p>Especialidad: {{ $especialidad->nombre }}</p>
+
+                <hr>
+
+                <p>Código del Ticket: {{ $ticket->codigo }}</p>
+                <p>Fecha y Hora del Ticket: {{ $ticket->fecha_hora }}</p>
+                <p>Estado del Ticket: {{ $ticket->estado }}</p>
+                <!-- Agrega más detalles según sea necesario -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para abrir automáticamente el modal -->
+<script>
+    $(document).ready(function() {
+        $('#openTicketModal').click(); // Abre el modal al cargar la página
+    });
+</script>
+@endif
+
+<!-- Resto del código de la vista -->
 </body>
 
 </html>

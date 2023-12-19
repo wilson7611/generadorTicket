@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AfiliadoController;
+use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\EspecialidadesController;
@@ -45,3 +46,23 @@ Route::resource('medicos', MedicoController::class)->only(['index'])->names('med
 Route::get('/especialidades', [EspecialidadesController::class, 'index'])->name('especialidades.index');
 
 Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
+Route::resource('tickets', TicketController::class);
+
+//ruta empresas
+Route::get('/empresas/index', [EmpresaController::class, 'index'])->name('empresas.index');
+// Route::get('/empresas/index', [EmpresaController::class, 'index']);
+// Route::get('/empresas', [EmpresaController::class, 'index']);
+Route::post('/store', [EmpresaController::class, 'store'])->name('store');
+Route::get('/fetchall', [EmpresaController::class, 'fetchAll'])->name('fetchAll');
+Route::delete('/delete', [EmpresaController::class, 'delete'])->name('delete');
+Route::get('/edit', [EmpresaController::class, 'edit'])->name('edit');
+Route::post('/update', [EmpresaController::class, 'update'])->name('update');
+
+//ruta especialidades
+// Route::get('/especialidades/index', [EspecialidadesController::class, 'index']);
+// Route::get('/especialidades', [EspecialidadesController::class, 'index']);
+// Route::post('/store', [EspecialidadesController::class, 'store'])->name('store');
+// Route::get('/fetchall', [EspecialidadesController::class, 'fetchAll'])->name('fetchAll');
+// Route::delete('/delete', [EspecialidadesController::class, 'delete'])->name('delete');
+// Route::get('/edit', [EspecialidadesController::class, 'edit'])->name('edit');
+// Route::post('/update', [EspecialidadesController::class, 'update'])->name('update');
