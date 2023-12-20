@@ -9,19 +9,19 @@
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="http://127.0.0.1:8000/assets/images/favicon.ico">
+    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}">
     <!-- Layout config Js -->
-<script src="http://127.0.0.1:8000/assets/js/layout.js"></script>
+<script src="assets/js/layout.js"></script>
 <!-- Bootstrap Css -->
-<link href="http://127.0.0.1:8000/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/css/bootstrap.min.css')}}" id="bootstrap-style" rel="stylesheet" type="text/css" />
 <!-- Icons Css -->
-<link href="http://127.0.0.1:8000/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/css/icons.min.css')}}" rel="stylesheet" type="text/css" />
 <!-- App Css-->
-<link href="http://127.0.0.1:8000/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/css/app.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
 <!-- custom Css-->
-<link href="http://127.0.0.1:8000/assets/css/custom.min.css" id="app-style" rel="stylesheet" type="text/css" />
+<link href="{{asset('assets/css/custom.min.css')}}" id="app-style" rel="stylesheet" type="text/css" />
     <!--datatable css-->
-    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css" />
     <!--datatable responsive css-->
     <link href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
@@ -1650,18 +1650,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
 
-<script src="http://127.0.0.1:8000/assets/js/pages/datatables.init.js"></script>
-<script src="http://127.0.0.1:8000/assets/libs/sweetalert2/sweetalert2.min.js"></script>
+<script src="{{asset('assets/js/pages/datatables.init.js')}}"></script>
+<script src="{{asset('assets/libs/sweetalert2/sweetalert2.min.js')}}"></script>
 {{-- <script src="http://127.0.0.1:8000/assets/js/app.min.js"></script> --}}
 
     <!-- JAVASCRIPT -->
-    <script src="http://127.0.0.1:8000/assets/libs/bootstrap/bootstrap.min.js"></script>
-<script src="http://127.0.0.1:8000/assets/libs/simplebar/simplebar.min.js"></script>
-<script src="http://127.0.0.1:8000/assets/libs/node-waves/node-waves.min.js"></script>
-<script src="http://127.0.0.1:8000/assets/libs/feather-icons/feather-icons.min.js"></script>
-<script src="http://127.0.0.1:8000/assets/js/pages/plugins/lord-icon-2.1.0.min.js"></script>
-<script src="http://127.0.0.1:8000/assets/js/plugins.min.js"></script>
-<script src="http://127.0.0.1:8000/assets/js/app.min.js"></script>
+    <script src="{{asset('assets/libs/bootstrap/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+<script src="{{asset('assets/libs/node-waves/node-waves.min.js')}}"></script>
+<script src="{{asset('assets/libs/feather-icons/feather-icons.min.js')}}"></script>
+<script src="{{asset('assets/js/pages/plugins/lord-icon-2.1.0.min.js')}}"></script>
+<script src="{{asset('assets/js/plugins.min.js')}}"></script>
+<script src="{{asset('assets/js/app.min.js')}}"></script>
 </body>
 
 </html>
