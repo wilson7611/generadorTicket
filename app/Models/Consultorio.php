@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Consultorio extends Model
 {
     use HasFactory;
+    protected $fillable = ['nombre', 'hospital_id'];
      // Relación: Un consultorio pertenece a un hospital
      public function hospital()
      {

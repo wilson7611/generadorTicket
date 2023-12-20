@@ -15,8 +15,20 @@
             margin-top: 20px;
         }
         @media print {
+            
+            
+            
             /* Oculta el botón de imprimir al imprimir la página */
             button.print-hidden {
+                display: none;
+            }
+            a.print-hidden {
+                display: none;
+            }
+            .container {
+                max-width: 100%;
+            }
+            .no-print {
                 display: none;
             }
         }
@@ -24,7 +36,9 @@
 </head>
 <body>
     <div class="container">
-        <div class="row justify-content-md-center">
+        <div class="row ">
+            <div class="col-md-3 .no-print">
+            </div>
             <div class="col-md-6">
                 <h1 class="text-center">Detalle del Ticket</h1>
 
@@ -42,12 +56,16 @@
                 <p><strong>Afiliado:</strong> {{ $afiliado->nombre_completo }}</p>
                 <p><strong>CI:</strong> {{ $afiliado->ci }}</p>
 
-                <!-- Botón de imprimir con estilo de Bootstrap -->
-                <button class="btn btn-success  print-hidden" onclick="window.print()">Imprimir</button>
+                <div class="d-flex align-items-baseline print-hidden">
+                    <button class="btn btn-success mr-2" onclick="window.print()">Imprimir</button>
+                    <a href="{{ route('afiliados.index') }}"  class="btn btn-danger">Volver</a>
+                </div>
                 
             </div>
+            <div class="col-md-3 .no-print"></div>
         </div>
     </div>
+    <div class="container .no-print"></div>
 
     <!-- Agrega la referencia a Bootstrap JS y Popper.js (requerido por Bootstrap) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

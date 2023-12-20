@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Especialidades extends Model
 {
     use HasFactory;
-    // Relación: Una especialidad tiene muchos médicos
+    protected $fillable = ['nombre', 'color', 'cantidad_ticket'];
+    // Relación: Una especialidad tiene muchos médicos'
+
     public function medicos()
     {
         return $this->hasMany(Medico::class, 'especialidad_id');

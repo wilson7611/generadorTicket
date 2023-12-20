@@ -15,6 +15,10 @@ class Medico extends Model
     {
         return $this->belongsTo(Especialidades::class, 'especialidad_id');
     }
+    public function consultorio()
+    {
+        return $this->belongsTo(Consultorio::class, 'consultorio_id');
+    }
 
     // Relación: Un médico pertenece a un hospital
     public function hospital()

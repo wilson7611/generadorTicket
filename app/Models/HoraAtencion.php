@@ -8,19 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class HoraAtencion extends Model
 {
     use HasFactory;
-    protected $fillable = ['hora', 'consultorio_id', 'especialdiad_id'];
+    protected $fillable = ['hora', 'consultorio_id', 'especialidad_id'];
 
     public function consultorio()
     {
         return $this->belongsTo(Consultorio::class, 'consultorio_id');
     }
-    // En el modelo HoraAtencion.php
-    public function atenciones()
+   
+    public function especialidad()
     {
-        return $this->hasMany(Atencion::class);
-    }
-    public function especialidades()
-    {
-        return $this->belongsTo(Especialidades::class);
+        return $this->belongsTo(Especialidades::class, 'especialidad_id');
     }
 }

@@ -1,55 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-    <div class="container">
-        <br>
-        <h3>Bienvenido, {{ $afiliado->nombre_completo }}</h3>
+@extends('layouts.app')
+@section('content')
+    <div class="container mt-5 ">
+        <div class="d-flex justify-content-between">
+            <h3 class="">Bienvenido, {{ $afiliado->nombre_completo }}</h3>
+            <a class="btn btn-info text-white" href="{{ route('afiliados.index') }}">Volver</a>
+        </div>
         <hr>
+        <br>
         <div class="row">
             @foreach ($medicos as $medico)
-                <div class="col-md-3 mt-4 ">
-
-                    <div class="card" style="width: 18rem;">
-                        {{-- <img class="card-img-top" src="..." alt="Card image cap">
-                   --}}
+                <div class="col-xl-3 col-md-6">
+                    <!-- card -->
+                    <div class="card card-animate bg-primary">
                         <div class="card-body">
-                            <div>
-                                @if($medico->especialidad->cantidad_ticket > 0)
-                                <label for="">
-                                    {{-- <input type="text" value="{{ $medico->especialidad->id }}"> --}}
-                                    <h3>{{ $medico->especialidad->nombre }}</h3>
-                                </label>
-                                <p>Hospital: {{ $medico->hospital->nombre }}</p>
-                                <p>Médico: {{ $medico->nombre_completo }}</p>
-                                <p>Nro Ticket: {{ $medico->especialidad->cantidad_ticket }}</p>
-
-                                <!-- Enlace para registrar -->
-                                <a class="btn btn-success"
-                                    href="{{ route('afiliados.registrar', ['afiliado' => $afiliado->id, 'especialidad' => $medico->especialidad->id, 'medico' => $medico->id, 'hospital' => $medico->hospital->id]) }}">
-                                    Registrar
-                                </a>
-                                @else
-                                    <h3>{{ $medico->especialidad->nombre }}</h3>
-                                    <p>Esta especialidad no tiene tickets disponibles.</p>
-                                @endif
-                            </div>
-                            <hr>
-                        </div>
-                    </div>
-                </div>
+                            @if ($medico->especialidad->cantidad_ticket > 0)
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <p class="text-uppercase fw-bold text-white-50 text-truncate mb-0">
+                                            {{ $medico->hospital->nombre }}</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-end justify-content-between mt-3">
+                                    <div>
+                                        <h4 class="fs-22 fw-bold ff-secondary text-white mb-3"><span class="counter-value"
+                                                data-target="559.25"></span>{{ $medico->especialidad->nombre }}
+                                        </h4>
+                                        <h4 class="fs-15 fw-bold ff-secondary text-white mb-3">Médico:
+                                            {{ $medico->nombre_completo }}</h4>
+                                        <h4 class="fs-15 fw-bold ff-secondary text-white mb-4">Nro Ticket:
+                                            {{ $medico->especialidad->cantidad_ticket }}</h4>
+                                        <!-- Enlace para registrar -->
+                                        <a class="btn btn-success"
+                                            href="{{ route('afiliados.registrar', ['afiliado' => $afiliado->id, 'especialidad' => $medico->especialidad->id, 'medico' => $medico->id, 'hospital' => $medico->hospital->id]) }}">
+                                            Registrar
+                                        </a>
+                                    </div>
+                                    <div class="avatar-sm flex-shrink-0">
+                                        <span class="avatar-title bg-soft-light rounded fs-3">
+                                            <i class="bx bx-dollar-circle text-white"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            @else
+                                <h3 class="text-uppercase fw-bold text-white-50 text-truncate mb-0">
+                                    {{ $medico->especialidad->nombre }}</h3>
+                                <br>
+                                <p class="text-white">Esta especialidad no tiene tickets disponibles.</p>
+                            @endif
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
             @endforeach
+
         </div>
     </div>
-</body>
-
-</html>
+    @endsection

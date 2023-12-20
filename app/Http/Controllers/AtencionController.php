@@ -12,7 +12,8 @@ class AtencionController extends Controller
      */
     public function index()
     {
-        //
+        $atenciones = Atencion::all();
+        return view('atenciones.index', compact('atenciones'));
     }
 
     /**

@@ -1,44 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
+@section('content')
+    <div class="container">
+        <div class="row" style="height: 200px">
+            <ul class="nav justify-content-end  ">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Document</title>
-</head>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="{{ route('login') }}">Login</a>
+                </li>
+            </ul>
 
-<body>
-
-</body>
-
-</html>
-<div class="container">
-    <div class="row" style="height: 200px">
-        <ul
-            class="nav justify-content-end  "
-        >
-            
-        <li class="nav-item">
-            <a class="nav-link text-dark" href="{{ route('login') }}">Login</a>
-        </li>
-        </ul>
-        
-    </div>
-    <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <!-- resources/views/afiliados/index.blade.php -->
-            <form action="{{ route('afiliados.validar') }}" method="post">
-                @csrf
-                <label for="ci" class="form-label">Ingrese Cedula de Identidad del Afiliado:</label>
-                <input type="text" name="ci" class="form-control" value="26683871" autofocus required>
-                <br>
-                <button type="submit" class="btn btn-success">Validar Afiliado</button>
-            </form>
         </div>
-        <div class="col-md-4"></div>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                
+            <form action="{{route('afiliados.validar')}}" method="POST">
+                <div class="input-group countdown-input-group mx-auto my-4">
+                    
+                        @csrf
+                        <input style="height: 50px; width:180px; font-size:20px" type="text" class="form-control border-light shadow"
+                            placeholder="Ingrese numero de Carnet" aria-label="search result"
+                            aria-describedby="button-email" name="ci" autofocus>
+                        <button style="font-size:20px;" class="btn btn-success" type="submit" id="button-email">Validar<i
+                                class="ri-send-plane-2-fill align-bottom ms-2"></i></button>
+                    
+                </div>
+            </form>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
     </div>
-</div>
+
+
+
+
+
+
+ 
+@endsection

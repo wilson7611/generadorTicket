@@ -21,4 +21,8 @@ class Hospital extends Model
     {
         return $this->hasMany(Medico::class, 'hospital_id');
     }
+    public function consultorio()
+    {
+        return $this->hasMany(Consultorio::class, 'consultorio_id');
+    }
 }

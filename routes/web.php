@@ -3,10 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AfiliadoController;
+use App\Http\Controllers\AtencionController;
+use App\Http\Controllers\ConsultorioController;
 use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MedicoController;
 use App\Http\Controllers\EspecialidadesController;
+use App\Http\Controllers\HoraAtencionController;
+use App\Http\Controllers\registroTicketsController;
+
+use App\Models\Especialidades;
+use App\Models\HoraAtencion;
+use App\Models\Medico;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,32 +46,32 @@ Route::get('/afiliados/registrar/{afiliado}/{especialidad}/{medico}/{hospital}',
 Route::post('/afiliados/registrar', [TicketController::class, 'registrar'])->name('afiliados.registrar.post');
 
 Auth::routes();
-
+Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::post('/store', [MedicoController::class, 'store'])->name('store');
-Route::get('/fetchall', [MedicoController::class, 'fetchAll'])->name('fetchAll');
-Route::resource('medicos', MedicoController::class)->only(['index'])->names('medicos.index');
-Route::get('/especialidades', [EspecialidadesController::class, 'index'])->name('especialidades.index');
+Route::get('/especialidades/index', [EspecialidadesController::class, 'index']);
+Route::resource('especialidades', EspecialidadesController::class);
+Route::get('/especialidades/delete', [EspecialidadesController::class, 'delete']);
 
-Route::get('/tickets', [TicketController::class, 'index'])->name('tickets.index');
-Route::resource('tickets', TicketController::class);
+Route::get('/medicos/index', [MedicoController::class, 'index']);
+Route::resource('medicos', MedicoController::class);
+Route::get('/especialidades/delete', [MedicoController::class, 'delete']);
 
-//ruta empresas
-Route::get('/empresas/index', [EmpresaController::class, 'index'])->name('empresas.index');
-// Route::get('/empresas/index', [EmpresaController::class, 'index']);
-// Route::get('/empresas', [EmpresaController::class, 'index']);
-Route::post('/store', [EmpresaController::class, 'store'])->name('store');
-Route::get('/fetchall', [EmpresaController::class, 'fetchAll'])->name('fetchAll');
-Route::delete('/delete', [EmpresaController::class, 'delete'])->name('delete');
-Route::get('/edit', [EmpresaController::class, 'edit'])->name('edit');
-Route::post('/update', [EmpresaController::class, 'update'])->name('update');
 
-//ruta especialidades
-// Route::get('/especialidades/index', [EspecialidadesController::class, 'index']);
-// Route::get('/especialidades', [EspecialidadesController::class, 'index']);
-// Route::post('/store', [EspecialidadesController::class, 'store'])->name('store');
-// Route::get('/fetchall', [EspecialidadesController::class, 'fetchAll'])->name('fetchAll');
-// Route::delete('/delete', [EspecialidadesController::class, 'delete'])->name('delete');
-// Route::get('/edit', [EspecialidadesController::class, 'edit'])->name('edit');
-// Route::post('/update', [EspecialidadesController::class, 'update'])->name('update');
+Route::get('/consultorios/index', [ConsultorioController::class, 'index']);
+Route::resource('consultorios', ConsultorioController::class);
+Route::get('/consultorios/delete', [ConsultorioController::class, 'delete']);
+
+Route::get('/horasAtenciones/index', [HoraAtencionController::class, 'index']);
+Route::resource('horasAtenciones', HoraAtencionController::class);
+Route::get('/horasAtenciones/delete', [HoraAtencionController::class, 'delete']);
+
+Route::get('/atenciones/index', [AtencionController::class, 'index']);
+Route::resource('atenciones', AtencionController::class);
+Route::get('/atenciones/delete', [AtencionController::class, 'delete']);
+
+Route::get('/tickets/index', [registroTicketsController::class, 'index']);
+Route::resource('tickets', registroTicketsController::class);
+Route::get('/tickets/delete', [registroTicketsController::class, 'delete']);
+
+
